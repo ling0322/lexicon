@@ -1,9 +1,10 @@
-package reimu
+package lexicon
 
 import (
 	"fmt"
-	"github.com/pkg/errors"
 	"strings"
+
+	"github.com/pkg/errors"
 )
 
 // _Trie is a ordinary implementation of trie

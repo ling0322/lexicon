@@ -1,11 +1,11 @@
-package reimu
+package lexicon
 
 import (
 	"encoding/binary"
 	"errors"
 	"fmt"
-	"strings"
 	"os"
+	"strings"
 )
 
 const Header = "REIMU_Lex.v1"
@@ -48,13 +48,18 @@ type blockT struct {
 	freeSlots int
 }
 
-// InitialState creates the initial state in traversing
+// InitialState creates the initial state for traversing
 func InitialState() State {
 	return State{
 		state:     0,
 		suffixId:  -1,
 		suffixPtr: -1,
 	}
+}
+
+// Valid returns if this state is valid
+func (s *State) Valid() bool {
+	return s.state >= 0 || s.suffixId >= 0
 }
 
 // empty returns whether this slot is free
@@ -146,7 +151,7 @@ func (t *Lexicon) build(
 
 	// Display progress when needed
 	t.processedNodes++
-	if progress != nil && t.processedNodes % ProgressStep == 0 {
+	if progress != nil && t.processedNodes%ProgressStep == 0 {
 		progress(t.processedNodes, t.totalNodes)
 	}
 
@@ -421,8 +426,7 @@ func ProgressBar(processed, total int) {
 		precentage := float64(processed) / float64(total) * 100.0
 		fmt.Printf(
 			"%s] % 3.2f%%\r",
-			strings.Repeat(" ", barWidth - pos - 1),
+			strings.Repeat(" ", barWidth-pos-1),
 			precentage)
 	}
 }
-

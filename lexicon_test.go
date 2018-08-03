@@ -1,16 +1,15 @@
-package reimu
+package lexicon
 
 import (
 	"math/rand"
 	"testing"
 )
 
-
 const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 // sampleT stores the samples for testing
 type sampleT struct {
-	key string
+	key   string
 	value int32
 }
 
@@ -28,7 +27,7 @@ func randomString(maxLength int) string {
 func prepareData(N, maxLen int) (dict map[string]int32, testData []sampleT) {
 	// Prepare dict
 	dict = map[string]int32{}
-	for i := 0; i < N / 2; i++ {
+	for i := 0; i < N/2; i++ {
 		rnds := randomString(maxLen)
 		if _, ok := dict[rnds]; !ok {
 			dict[rnds] = int32(i)
@@ -111,6 +110,6 @@ func TestRandomString(t *testing.T) {
 		}
 		if sample.value >= 0 && (!ok || v != sample.value) {
 			t.FailNow()
-		} 
+		}
 	}
 }

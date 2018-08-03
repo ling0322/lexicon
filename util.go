@@ -1,4 +1,4 @@
-package reimu
+package lexicon
 
 import (
 	"log"
